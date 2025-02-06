@@ -1,7 +1,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
-import {useUserStore} from "../store/user.js";
+import {useUserStore} from "../../store/user.ts";
 
 export default defineComponent({
   name: 'Navbar',
@@ -25,19 +25,19 @@ export default defineComponent({
   <div id="global-navbar">
     <div class="logo">
       <a>
-        <img src="../assets/spotify-white-icon.svg" width="32" height="32" alt="spotify-logo">
+        <img src="../../assets/spotify-white-icon.svg" width="32" height="32" alt="spotify-logo">
       </a>
     </div>
     <div class="home-and-search">
       <button class="home">
-        <img src="../assets/icon/house-door.svg" alt="icon-house" width="24" height="24">
+        <img src="../../assets/icon/house-door.svg" alt="icon-house" width="24" height="24">
       </button>
       <div class="search-wrapper">
         <form>
-          <img class="icon-search" src="../assets/icon/search.svg" alt="icon-search" width="24" height="24"/>
+          <img class="icon-search" src="../../assets/icon/search.svg" alt="icon-search" width="24" height="24"/>
           <input class="search-input" type="search" placeholder="Bạn muốn phát nội dung gì ?">
           <v-divider class="search-divider" vertical color="white" length="32px" opacity="1"/>
-          <img class="icon-archive" src="../assets/icon/archive.svg" alt="icon-archive" width="24" height="24"/>
+          <img class="icon-archive" src="../../assets/icon/archive.svg" alt="icon-archive" width="24" height="24"/>
         </form>
       </div>
     </div>

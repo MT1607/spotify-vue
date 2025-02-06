@@ -4,6 +4,8 @@ export const useUserStore = defineStore('user', {
     state: () => ({
         user: null,
         isAuthenticated: false,
+        accessToken: null,
+        refreshToken: null,
     }),
 
     actions: {
@@ -21,6 +23,10 @@ export const useUserStore = defineStore('user', {
             this.isAuthenticated = false;
             localStorage.removeItem('spotifyToken');
         },
+
+        logout() {
+
+        }
     },
 
     persist: true,

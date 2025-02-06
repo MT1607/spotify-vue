@@ -2,8 +2,8 @@
 import { defineComponent, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import { useUserStore } from '../../store/user.js';
-import {useProfileStore} from "../../store/profile.js";
+import { useUserStore } from '../../store/user.ts';
+import {useProfileStore} from "../../store/profile.ts";
 
 export default defineComponent({
   name: 'AuthCallback',

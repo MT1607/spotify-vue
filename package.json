@@ -14,10 +14,12 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
+    "element-plus": "^2.9.3",
     "install": "^0.13.0",
     "npm": "^11.1.0",
     "pinia": "^2.3.1",
     "pinia-plugin-persistedstate": "^4.2.0",
+    "typescript": "^5.7.3",
     "vue": "^3.5.13",
     "vue-router": "4",
     "vuetify": "^3.7.6"

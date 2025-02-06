@@ -2,10 +2,10 @@
 
 
 import {onMounted} from "vue";
-import Navbar from "./components/Navbar.vue";
-import LeftSideBar from "./components/LeftSideBar.vue";
-import MainView from "./components/MainView.vue";
-import {useProfileStore} from "./store/profile.js";
+import Navbar from "./components/shared/Navbar.vue";
+import LeftSideBar from "./components/shared/LeftSideBar.vue";
+import MainView from "./components/shared/MainView.vue";
+import {useProfileStore} from "./store/profile.ts";
 
 const profileData = useProfileStore();
 

@@ -1,6 +1,6 @@
 <script setup>
 
-import NowPlayingCard from "./card/NowPlayingCard.vue";
+import NowPlayingCard from "../card/NowPlayingCard.vue";
 </script>
 
 <template>
@@ -10,11 +10,11 @@ import NowPlayingCard from "./card/NowPlayingCard.vue";
         <header>
           <div class="library">
             <button class="library-btn">
-              <img src="../assets/icon/collection-fill.svg" alt="library-icon" width="24" height="24"/>
+              <img src="../../assets/icon/collection-fill.svg" alt="library-icon" width="24" height="24"/>
               Thư Viện
             </button>
             <button class="plus-btn">
-              <img src="../assets/icon/plus.svg" alt="plus-icon" width="24" height="24"/>
+              <img src="../../assets/icon/plus.svg" alt="plus-icon" width="24" height="24"/>
             </button>
           </div>
           <NowPlayingCard title="Tạo danh sách phát" extra="Hãy đăng nhập để tạo danh sách phát cuả bạn">
