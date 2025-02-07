@@ -7,7 +7,7 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import {createPinia} from "pinia";
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import router from "./router/index.js";
+import router from "./router/index.ts";
 
 const vuetify = createVuetify({
     components,

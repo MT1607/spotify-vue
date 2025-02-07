@@ -19,27 +19,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container">
-    <Navbar />
-    <div class="main-view">
-      <LeftSideBar/>
-      <MainView/>
-    </div>
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 
 
 <style>
-  .container {
-    height: 100vh;
-  }
 
-  .main-view {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    margin-top: 5px;
-  }
 </style>

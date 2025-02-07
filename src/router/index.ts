@@ -6,8 +6,8 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            name: 'App',
-            component: () => import('../App.vue'),
+            name: 'Home',
+            component: () => import('../layouts/HomeLayout.vue'),
             meta: { requiresAuth: true },
         },
         {
