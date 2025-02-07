@@ -9,7 +9,7 @@ export function useAsync<T> (asyncFn: (...args: any[]) => Promise<T>) {
     const execute = async (...args: any[]) => {
         loading.value = true;
         error.value = null;
-
+        console.log(args);
         try {
             data.value = await asyncFn(...args);
             return data.value

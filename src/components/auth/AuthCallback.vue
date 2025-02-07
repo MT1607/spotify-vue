@@ -1,64 +1,45 @@
-<script>
-import { defineComponent, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import axios from 'axios';
-import { useUserStore } from '../../store/user.ts';
-import {useProfileStore} from "../../store/profile.ts";
+<script setup lang="ts">
+  import { onMounted } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useUserStore } from '../../store/user';
+  import { spotifyService } from '../../services/api/spotify-service';
+  import { useAsync } from '../../composables/useAsync';
+  import { notify } from '../../plugin/notification';
 
-export default defineComponent({
-  name: 'AuthCallback',
-  setup() {
-    const router = useRouter();
-    const userStore = useUserStore();
-    const profileStore = useProfileStore();
+  const router = useRouter();
+  const userStore = useUserStore();
 
-    const handleCallback = async () => {
+  async function handleAuthentication() {
+    try {
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
-
-      if (code) {
-        try {
-          const response = await axios.get('http://localhost:3000/callback', {
-            params: { code },
-          });
-
-          const { access_token, user, refresh_token } = response.data;
-
-          localStorage.setItem('spotify_access_token', access_token);
-          localStorage.setItem('spotify_refresh_token', refresh_token);
-          userStore.setUser(user);
-          fetchProfile(access_token);
-          const returnPath = localStorage.getItem('returnPath') || '/';
-          localStorage.removeItem('returnPath');
-
-          // Redirect to main app
-          router.push(returnPath);
-        } catch (error) {
-          console.error('Authentication failed:', error);
-          router.push('/');
-        }
+      if (!code) {
+        console.error("No code found in URL");
+        return;
       }
-    };
 
-    const fetchProfile = async (access_token) => {
-      try {
-        const response = await axios.get(`http://localhost:3000/profile?access_token=${access_token}`);
-        if (response.status === 200) {
-          profileStore.setProfile(response.data);
-        }
-      } catch (e) {
-        console.log(e)
+      const data = await spotifyService.handleCallback(code);
+
+      if (!data || !data.access_token || !data.refresh_token) {
+        console.error("Invalid token response:", data);
+        return;
       }
+
+      userStore.setTokens(data.access_token, data.refresh_token);
+      await userStore.fetchUserProfile();
+      await router.push('/');
+    } catch (error) {
+      console.error("Authentication failed:", error);
+      notify.error("Failed to log in. Please try again.");
     }
+  }
+  const { loading, execute } = useAsync(handleAuthentication);
 
-    onMounted(() => {
-      handleCallback();
-    });
-
-    return {};
-  },
-});
+  onMounted(() => {
+    execute();
+  });
 </script>
+
 <template>
   <div class="callback-container">
     <div class="loading-spinner"></div>
