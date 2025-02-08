@@ -1,6 +1,11 @@
-<script setup>
+<script setup lang="ts">
 
 import NowPlayingCard from "../card/NowPlayingCard.vue";
+import {handleSpotifyLogin} from "../../utils/script.ts";
+
+const props = defineProps({
+  isAuthenticated: Boolean as () => false,
+})
 </script>
 
 <template>
@@ -17,8 +22,8 @@ import NowPlayingCard from "../card/NowPlayingCard.vue";
               <img src="../../assets/icon/plus.svg" alt="plus-icon" width="24" height="24"/>
             </button>
           </div>
-          <NowPlayingCard title="Tạo danh sách phát" extra="Hãy đăng nhập để tạo danh sách phát cuả bạn">
-            <button class="sign-in">Đăng nhập</button>
+          <NowPlayingCard v-if="!props.isAuthenticated" title="Tạo danh sách phát" extra="Hãy đăng nhập để tạo danh sách phát cuả bạn">
+            <button class="sign-in" @click="handleSpotifyLogin">Đăng nhập</button>
           </NowPlayingCard>
         </header>
       </div>

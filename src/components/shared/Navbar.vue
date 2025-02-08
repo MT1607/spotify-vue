@@ -1,24 +1,13 @@
-<script>
-import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
-import {useUserStore} from "../../store/user.ts";
+<script setup lang="ts">
+import AvatarButton from "./AvatarButton.vue";
+import {UserProfile} from "../../utils/types";
+import {handleSpotifyLogin} from "../../utils/script";
 
-export default defineComponent({
-  name: 'Navbar',
-  setup() {
-    const handleSpotifyLogin = () => {
-      try {
-        localStorage.setItem('returnPath', window.location.pathname);
-        window.location.href = 'http://localhost:3000/login';
-      } catch (error) {
-        console.error("Can't redirect to spotify login", error);
-      }
-    };
-    return {
-      handleSpotifyLogin,
-    };
-  },
-});
+const props = defineProps({
+  profile: Object as () => UserProfile,
+  isAuthenticated: Boolean as () => false,
+})
+
 </script>
 
 <template>
@@ -42,8 +31,9 @@ export default defineComponent({
       </div>
     </div>
     <div class="authentication">
-      <button class="sign-up">Đăng ký</button>
-      <button class="sign-in" @click="handleSpotifyLogin">Đăng nhập</button>
+      <button class="sign-up" v-if="!props.isAuthenticated">Đăng ký</button>
+      <button class="sign-in" @click="handleSpotifyLogin" v-if="!props.isAuthenticated">Đăng nhập</button>
+      <AvatarButton :is-show="props.isAuthenticated" :url-avatar="props.profile?.images[1].url" />
     </div>
   </div>
 </template>

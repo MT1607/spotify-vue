@@ -3,7 +3,7 @@
   import { useRouter } from 'vue-router';
   import { useUserStore } from '../../store/user';
   import { spotifyService } from '../../services/api/spotify-service';
-  import { useAsync } from '../../composables/useAsync';
+  import { useAsync } from '../../async/useAsync';
   import { notify } from '../../plugin/notification';
 
   const router = useRouter();

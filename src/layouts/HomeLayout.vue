@@ -1,29 +1,27 @@
-<script setup>
+<script setup lang="ts">
 
-
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 
 import Navbar from "../components/shared/Navbar.vue";
 import LeftSideBar from "../components/shared/LeftSideBar.vue";
 import MainView from "../components/shared/MainView.vue";
-import {useProfileStore} from "../store/profile.ts";
+import {useUserStore} from "../store/user.js";
+import {storeToRefs} from "pinia";
 
-const profileData = useProfileStore();
+const userStore  = useUserStore();
+const {isAuthenticated, profile} = storeToRefs(userStore);
 
-onMounted(() => {
-  if (profileData.isLoggedIn) {
-    const profile = profileData.profile;
-    console.log(profile);
-  }
-});
+onMounted(async () => {
+  await userStore.getUserProfileStorage();
+})
 
 </script>
 
 <template>
   <div class="container">
-    <Navbar />
+    <Navbar :is-authenticated="isAuthenticated" :profile="profile" />
     <div class="main-view">
-      <LeftSideBar/>
+      <LeftSideBar :is-authenticated="isAuthenticated" />
       <MainView/>
     </div>
   </div>

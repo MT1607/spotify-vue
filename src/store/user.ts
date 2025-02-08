@@ -2,10 +2,11 @@ import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
 import { spotifyService } from '../services/api/spotify-service';
 import { notify } from '../plugin/notification';
+import {UserProfile} from "../utils/types";
 
 export const useUserStore = defineStore('user', {
     state: () => ({
-        user: null,
+        profile: null as UserProfile,
         isAuthenticated: false,
         accessToken: null as string | null,
         refreshToken: null as string | null,
@@ -20,7 +21,7 @@ export const useUserStore = defineStore('user', {
         },
 
         async setUserAndProfile(userData: any) {
-            this.user = userData;
+            this.profile = userData;
             this.isAuthenticated = true;
             localStorage.setItem('spotify_user', JSON.stringify(userData));
         },
@@ -30,12 +31,21 @@ export const useUserStore = defineStore('user', {
             if (!token) return null;
 
             const profile = await spotifyService.getUserProfile(token);
-            this.setUserAndProfile(profile);
+            await this.setUserAndProfile(profile);
             return profile;
         },
 
+        async getUserProfileStorage(){
+            const userData = JSON.parse(localStorage.getItem('spotify_user'));
+            if (!userData) return null;
+
+            if (this.isAuthenticated) {
+                return userData.profile;
+            }
+        },
+
         logout() {
-            this.user = null;
+            this.profile = null;
             this.isAuthenticated = false;
             this.accessToken = null;
             this.refreshToken = null;
