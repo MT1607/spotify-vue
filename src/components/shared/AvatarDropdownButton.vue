@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {onMounted, onUnmounted, ref } from 'vue';
+import {handleSpotifyLogout} from "../../utils/script";
 
 const props = defineProps({
   urlAvatar: { type: String, default: "" },
@@ -48,7 +49,7 @@ onUnmounted(() => {
           <img src="../../assets/icon/box-arrow-up-right.svg" alt="profile-menu"/>
         </div>
         <hr/>
-        <div class="dropdown-item">
+        <div class="dropdown-item" @click="handleSpotifyLogout">
           Logout
           <img src="../../assets/icon/box-arrow-up-right.svg" alt="profile-menu"/>
         </div>
