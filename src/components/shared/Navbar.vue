@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AvatarButton from "./AvatarButton.vue";
 import {UserProfile} from "../../utils/types";
 import {handleSpotifyLogin} from "../../utils/script";
+import AvatarDropdownButton from "./AvatarDropdownButton.vue";
 
 const props = defineProps({
   profile: Object as () => UserProfile,
@@ -33,7 +33,7 @@ const props = defineProps({
     <div class="authentication">
       <button class="sign-up" v-if="!props.isAuthenticated">Đăng ký</button>
       <button class="sign-in" @click="handleSpotifyLogin" v-if="!props.isAuthenticated">Đăng nhập</button>
-      <AvatarButton :is-show="props.isAuthenticated" :url-avatar="props.profile?.images[1].url" />
+      <AvatarDropdownButton :is-show="props.isAuthenticated" :url-avatar="props.profile?.images[1].url" />
     </div>
   </div>
 </template>
@@ -147,5 +147,6 @@ const props = defineProps({
   .sign-in:hover {
     transform: scale(1.05);
   }
+
 
 </style>
